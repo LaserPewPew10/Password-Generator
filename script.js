@@ -6,9 +6,6 @@ var alphabetLowercase = "abcdefghijklmopqrstuvwxyz".split("");
 var alphabetCaps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 var num = "0123456789".split("");
 var sym = "~@#$%*&[]{}()-+=_".split("");
-var majorBank = "abcdefghijklmopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ~@#$%*&[]{}()-+=_".split(
-  ""
-);
 
 // Function will pull variable from a higher placement
 function generatePassword() {
@@ -27,6 +24,7 @@ function generatePassword() {
   var caps = false;
   var lowercase = false;
   var confirms = 0;
+  var majorBank = [];
 
   // New password variable is an array that will be filled for the random chracaters for the password
   var newpassword = [];
@@ -44,33 +42,32 @@ function generatePassword() {
 
   if (numbers) {
     confirms = confirms + 1;
+    majorBank = majorBank.concat(num);
+    console.log(majorBank);
   }
   if (symbols) {
     confirms = confirms + 1;
+    majorBank = majorBank.concat(sym);
+    console.log(majorBank);
   }
   if (caps) {
     confirms = confirms + 1;
+    majorBank = majorBank.concat(alphabetCaps);
+    console.log(majorBank);
   }
   if (lowercase) {
     confirms = confirms + 1;
+    majorBank = majorBank.concat(alphabetLowercase);
+    console.log(majorBank);
   }
-  // If the user chooses yes to put in a symbol, then a random character from the array will be pushed to the end of the new password
-  if (numbers) {
-    newpassword.push(num[randomPull(num)]);
-  }
-  if (symbols) {
-    newpassword.push(sym[randomPull(sym)]);
-  }
-  if (lowercase) {
-    newpassword.push(alphabetLowercase[randomPull(alphabetLowercase)]);
-  }
-  if (caps) {
-    newpassword.push(alphabetCaps[randomPull(alphabetCaps)]);
+
+  if (majorBank.length == 0) {
+    alert("You have not placed in correct characters");
   }
 
   // major bank unshifts as well as how many characters can be placed within the password
 
-  for (var i = 0; i < passwordLength - confirms; i++) {
+  for (var i = 0; i < passwordLength; i++) {
     newpassword.unshift(majorBank[randomPull(majorBank)]);
   }
   // This will give an array fofor the new password
@@ -87,6 +84,7 @@ function randomPull(string) {
 }
 
 function writePassword() {
+  majorBank = [];
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
