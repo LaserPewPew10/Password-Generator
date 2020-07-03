@@ -10,7 +10,7 @@ var sym = "~@#$%*&[]{}()-+=_".split("");
 // Function will pull variable from a higher placement
 function generatePassword() {
   passwordLength = prompt("How long do you want your password to be?");
-  if (passwordLength > 128 || passwordLength < 8) {
+  if (passwordLength > 128 || passwordLength < 8 || isNaN(passwordLength)) {
     alert(
       "Please choose a new number between 8 - 128 for your password length"
     );
